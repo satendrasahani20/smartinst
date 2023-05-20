@@ -1,0 +1,46 @@
+.body{
+    background:rgb(255, 246, 246);
+    cursor:pointer;
+  }
+  .logo{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+  .shadow{
+    box-shadow:0 10px 8px 4px rgba(0, 0, 0, 0.2) ;
+  }
+  h4:hover{
+    color:red;
+  }
+  .modle{
+  transition: all 0.2s;
+  }
+  .model:hover{
+  color:red;
+  transform: scale(1.1);
+  margin-left:15px;
+  }
+  p:hover{
+    color:rgb(235, 3, 3);
+  }
+  p::selection{
+    background:orange;
+    color:white;
+  }
+  .card{
+   transition:all 0.3s;
+  }
+  .card:hover{
+    transform: scale(1.1);
+  }
+  .heading{
+   text-shadow:3px 3px 4px gray;
+   box-shadow:3px 3px 4px gray; 
+  }
+  .main-layout{
+    margin: 7px 47px;
+  }
+  /* .centre-sidebar{
+    height: 100vh;
+  } */
