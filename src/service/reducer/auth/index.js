@@ -2,18 +2,22 @@ import * as types from "../../action";
 
 const initialState = {
     assessment: [],
-    modules: []
+    modules: [],
+    auth: {},
+    loginLoading: false,
 };
 
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.GET_COURSE_ADMIN_START:
-            return { ...state };
-        case types.GET_COURSE_ADMIN_SUCCESS:
-            return { ...state, devListLoading: false, assessment: action?.data };
-        case types.GET_COURSE_ADMIN_FAIL:
-            return { ...state, devListLoading: false };
+        case types.LOGIN_START:
+            return { ...state, loginLoading: true }
+        case types.LOGIN_SUCCESS:
+            return { ...state, loginLoading: false }
+        case types.LOGIN_FAIL:
+            return { ...state, loginLoading: false }
+        case types.GET_USER_SUCCESS:
+            return { ...state, auth: action?.data };
         default:
-            return {...state}
+            return { ...state }
     }
 }

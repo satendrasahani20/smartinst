@@ -1,26 +1,31 @@
 import * as types from "../";
-export const saveCourse = (data, onClose) => ({
+export const saveCourse = (navigate,data, onClose) => ({
   type: types.SAVE_COURSE_ADMIN,
   data,
-  onClose
+  onClose,
+  navigate
 });
-export const getCourse = () => ({
+export const getCourse = (navigate) => ({
   type: types.GET_COURSE_ADMIN,
+  navigate
 });
-export const deleteCourse = (id) => ({
+export const deleteCourse = (navigate,id,closeModal) => ({
   type: types.DELETE_COURSE,
-  id
+  id,
+  navigate,
+  closeModal
 });
-export const updateCourse = (id, data, onClose) => ({
+export const updateCourse = (navigate, data, onClose) => ({
   type: types.UPDATE_COURSE_ADMIN,
   onClose,
   data,
-  id
+  navigate
 });
 
-export const getModuleDetails = (id) => ({
+export const getModuleDetails = (navigate,id) => ({
   type: types.GET_MODULE_DETAILS_ADMIN,
-  id
+  id,
+  navigate
 })
 
 export const saveModule = (data, cancel) => ({

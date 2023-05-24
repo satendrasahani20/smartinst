@@ -111,5 +111,11 @@ export const LOGIN_START="LOGIN_START";
 export const LOGIN_FAIL="LOGIN_FAIL";
 export const LOGIN_SUCCESS="LOGIN_SUCCESS"; 
 
+export const GET_USER="GET_USER";
+export const GET_USER_START="GET_USER_START";
+export const GET_USER_SUCCESS="GET_USER_SUCCESS";
+export const GET_USER_FAIL="GET_USER_FAIL";
+
+export const SET_USER_SUCCESS="SET_USER_SUCCESS";
 
 

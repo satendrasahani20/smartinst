@@ -1,11 +1,12 @@
 import api from "./apiInstance";
 //Authentication
 export const login=(data)=>api.post("/login",data) 
+export const getUser=()=>api.get("/get-user") 
 
 export const saveCourses = (data) => api.post("/admin/course",data);
 export const getCourse=()=>api.get("/admin/course");
 export const deleteCourses=(id)=>api.delete(`/admin/course?id=${id}`);
-export const updateCourses=(id,data)=>api.put(`/admin/course?id=${id}`,data);
+export const updateCourses=(data)=>api.put(`/admin/course`,data);
 export const getModuleDetails=(id)=>api.get(`/admin/module?id=${id}`);
 export const saveModule=(data)=>api.post("/admin/module",data);
 export const updateModule=(id,data)=>api.put(`/admin/module?id=${id}`,data);

@@ -4,3 +4,12 @@ export const login = (navigate,obj) => ({
     obj,
     navigate
   })
+
+  export const getUser = () => ({
+    type: types.GET_USER,
+  })
+
+  export const setUser=(data)=>({
+    type:types.SET_USER_SUCCESS,
+    data
+  })

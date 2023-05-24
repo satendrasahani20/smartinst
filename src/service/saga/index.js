@@ -2,11 +2,13 @@ import { saveCourse, getCourses, deleteCourse, updateCourseSaga, getModuleDetail
 import { takeEvery } from "redux-saga/effects";
 import * as types from "../action";
 import { uploadImageSaga } from "./common";
-import { loginSaga } from "./auth";
+import { getUserSaga, loginSaga, setUserSaga } from "./auth";
 function* mySaga() {
     // Auth
     yield takeEvery(types.LOGIN,loginSaga)
-    
+    yield takeEvery(types.GET_USER,getUserSaga)
+    yield takeEvery(types.SET_USER_SUCCESS,setUserSaga)
+
     yield takeEvery(types.SAVE_COURSE_ADMIN, saveCourse);
     yield takeEvery(types.GET_COURSE_ADMIN,getCourses);
     yield takeEvery(types.DELETE_COURSE,deleteCourse)

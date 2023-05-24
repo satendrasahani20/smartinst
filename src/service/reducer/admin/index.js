@@ -36,7 +36,7 @@ export const adminReducer = (state = initialState, action) => {
             return { ...state, };
         case types.UPDATE_COURSE_ADMIN_SUCCESS:
             let tempAs2 = [...state.assessment]
-            let index = tempAs2?.findIndex((item) => item?._id == action?.id)
+            let index = tempAs2?.findIndex((item) => item?._id == action?.data?._id)
             tempAs2[index] = action?.data
             return { ...state, devListLoading: false, assessment: tempAs2 };
         case types.UPDATE_COURSE_ADMIN_FAIL:
