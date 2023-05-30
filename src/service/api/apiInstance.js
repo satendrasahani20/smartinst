@@ -2,6 +2,7 @@ import axios from "axios";
 
 const baseUrl = () => {
   let base_url = "https://localhost:3000"
+  console.log("window?.location?.href",window?.location?.href)
     if(window?.location?.href?.includes("https://green-gosling-boot.cyclic.app")) {
       base_url = "https://green-gosling-boot.cyclic.app"
     } 
