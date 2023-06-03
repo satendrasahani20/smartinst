@@ -7,10 +7,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getModuleDetails } from '../../../service/action/admin';
+import { deleteModule, getModuleDetails } from '../../../service/action/admin';
 import Modal from '../../../common/utils/modal/Modal';
 import Modules from './module/Modules';
 const CourseDetails = () => {
@@ -22,12 +23,18 @@ const CourseDetails = () => {
         handleSubmit,
         setError,
         control,
+        watch,
         formState: { errors }
     } = useForm();
     const { modules } = useSelector((state) => state.adminReducer)
+    // const [moduleDetail, setModuleDetail] = useState({
+    //     open: false,
+    //     edit: false,
+    // })
     const [moduleDetail, setModuleDetail] = useState({
-        open: false,
+        modal: false,
         edit: false,
+        add: false
     })
     const dispatch = useDispatch();
     const navigate = useNavigate()
@@ -41,24 +48,35 @@ const CourseDetails = () => {
         setValue("moduleName", item?.moduleName)
         setValue("content", item?.content)
         setValue("questions", item?.questions)
-        setModuleDetail({ open: true, edit: true })
+        setValue("_id",item?._id)
+        setModuleDetail({ modal: true, edit: true })
     }
     const cancel = () => {
         setModuleDetail({});
         reset();
     }
+    const handleAddModule = () => {
+        setModuleDetail({
+            modal: true,
+            add: true,
+        })
+    }
     return (
         <div className='admin-assessment'>
             <Modal
-                open={moduleDetail?.open}
+                open={moduleDetail?.modal}
                 onClose={cancel}
                 content={<Modules
-                    register={register}
+                    modulRegister={register}
                     getValues={getValues}
-                    handleSubmit={handleSubmit}
-                    control={control}
+                    handleModuleSubmit={handleSubmit}
+                    moduleControl={control}
                     setValue={setValue}
                     reset={reset}
+                    watch={watch}
+                    close={cancel}
+                    courseId={courseId}
+                    moduleDetail={moduleDetail }
                 />}
                 isFooterShown={false}
             />
@@ -67,7 +85,7 @@ const CourseDetails = () => {
                     onClick={() => navigate(-1)}
                 >Back</Button>
                 <Button variant='contained' className='m-3'
-                //  onClick={handleAddModule}
+                    onClick={handleAddModule}
                 >Add New Module</Button>
             </div>
             <TableContainer component={Paper}>
@@ -101,9 +119,11 @@ const CourseDetails = () => {
                                     <TableCell align="right"><Button
                                         onClick={() => handleEdit(item)}
                                         variant='contained'>Edit</Button></TableCell>
-                                    <TableCell align="right"><Button
-                                        // onClick={() => dispatch(deleteModule(item?._id, cancel))}
-                                        variant='contained'>Delete</Button></TableCell>
+                                    <TableCell align="right">
+                                      <DeleteIcon
+                                       color="secondary" 
+                                       onClick={() => dispatch(deleteModule(navigate,item?._id))}
+                                       sx={{cursor:"pointer"}}/></TableCell>
                                 </TableRow>
                             ))
                         }

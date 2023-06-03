@@ -39,7 +39,7 @@ export function* getCourses({ navigate }) {
   }
 }
 
-export function* deleteCourse({ navigate, id,closeModal }) {
+export function* deleteCourse({ navigate, id, closeModal }) {
   try {
     yield put({ type: types.DELETE_COURSE_START });
     yield call(deleteCourses, id);
@@ -79,14 +79,14 @@ export function* updateCourseSaga({ navigate, data, onClose }) {
   }
 }
 
-export function* getModuleDetailsSaga({ navigate,id }) {
+export function* getModuleDetailsSaga({ navigate, id }) {
   try {
     yield put({ type: types.GET_MODULE_DETAILS_ADMIN_START });
     const response = yield call(getModuleDetails, id);
-      yield put({
-        type: types.GET_MODULE_DETAILS_ADMIN_SUCCESS,
-        data: response?.data?.data
-      });
+    yield put({
+      type: types.GET_MODULE_DETAILS_ADMIN_SUCCESS,
+      data: response?.data?.data
+    });
   } catch (error) {
     toast.error(error?.response?.data?.message)
     if (error?.response?.status === 401) {
@@ -96,71 +96,59 @@ export function* getModuleDetailsSaga({ navigate,id }) {
   }
 }
 
-export function* saveModuleSaga({ data, cancel }) {
+export function* saveModuleSaga({ navigate, data, cancel }) {
   try {
     yield put({ type: types.SAVE_ADMIN_MODULE_START });
     const response = yield call(saveModule, data);
-    if (response?.data?.status == 200) {
-      toast.success("Add module successfully..")
-      yield put({
-        type: types.SAVE_ADMIN_MODULE_SUCCESS,
-        data: response?.data?.data
-      });
-      cancel()
-    } else {
-      toast.error(response?.data?.message)
-      yield put({
-        type: types.SAVE_ADMIN_MODULE_FAIL,
-        data: response?.data?.data,
-      });
-    }
+    toast.success("Add module successfully..")
+    yield put({
+      type: types.SAVE_ADMIN_MODULE_SUCCESS,
+      data: response?.data?.data
+    });
+    cancel()
   } catch (error) {
+    toast.error(error?.response?.data?.message)
+    if (error?.response?.status === 401) {
+      navigate("/")
+
+    }
     yield put({ type: types.SAVE_ADMIN_MODULE_FAIL });
   }
 }
-export function* updateModuleSaga({ id, data, cancel }) {
+export function* updateModuleSaga({ navigate, id, data }) {
   try {
     yield put({ type: types.UPDATE_ADMIN_MODULE_START });
     const response = yield call(updateModule, id, data);
-    if (response?.data?.status == 200) {
-      toast.success("Add module successfully..")
-      yield put({
-        type: types.UPDATE_ADMIN_MODULE_SUCCESS,
-        data: response?.data?.data,
-        id
-      });
-      cancel()
-    } else {
-      toast.error(response?.data?.message)
-      yield put({
-        type: types.UPDATE_ADMIN_MODULE_FAIL,
-        data: response?.data?.data,
-      });
-    }
+    toast.success("Update module successfully..")
+    yield put({
+      type: types.UPDATE_ADMIN_MODULE_SUCCESS,
+      data: response?.data?.data,
+      id
+    });
+
   } catch (error) {
+    toast.error(error?.response?.data?.message)
+    if (error?.response?.status === 401) {
+      navigate("/")
+    }
     yield put({ type: types.UPDATE_ADMIN_MODULE_FAIL });
   }
 }
 
-export function* deleteModuleSaga({ id, cancel }) {
+export function* deleteModuleSaga({ navigate, id }) {
   try {
     yield put({ type: types.DELETE_ADMIN_MODULE_START });
-    const response = yield call(deleteModule, id);
-    if (response?.data?.status == 200) {
-      toast.success("Delete Data Successfully..")
-      yield put({
-        type: types.DELETE_ADMIN_MODULE_SUCCESS,
-        id
-      });
-      cancel()
-    } else {
-      toast.error(response?.data?.message)
-      yield put({
-        type: types.DELETE_ADMIN_MODULE_FAIL,
-        data: response?.data?.data,
-      });
-    }
+    yield call(deleteModule, id);
+    toast.success("Delete Data Successfully..")
+    yield put({
+      type: types.DELETE_ADMIN_MODULE_SUCCESS,
+      id
+    });
   } catch (error) {
+    toast.error(error?.response?.data?.message)
+    if (error?.response?.status === 401) {
+      navigate("/")
+    }
     yield put({ type: types.DELETE_ADMIN_MODULE_FAIL });
   }
 }
@@ -188,71 +176,64 @@ export function* getAdminQuestionSaga({ id }) {
 }
 
 
-export function* saveAdminQuestionSaga({ id, data, cancel }) {
+export function* saveAdminQuestionSaga({ navigate, id, data, cancel }) {
   try {
     yield put({ type: types.SAVE_ADMIN_QUESTION_START });
     const response = yield call(saveAdminQuestion, id, data);
-    if (response?.data?.status == 200) {
-      toast.success("Add module successfully..")
-      yield put({
-        type: types.SAVE_ADMIN_QUESTION_SUCCESS,
-        data: response?.data?.data
-      });
-      cancel()
-    } else {
-      toast.error(response?.data?.message)
-      yield put({
-        type: types.SAVE_ADMIN_QUESTION_FAIL,
-        data: response?.data?.data,
-      });
-    }
+    toast.success("Add module successfully..")
+    yield put({
+      type: types.SAVE_ADMIN_QUESTION_SUCCESS,
+      data: response?.data?.data
+    });
+    // cancel()
+
   } catch (error) {
+    toast.error(error?.response?.data?.message)
+    if (error?.response?.status === 401) {
+      navigate("/")
+    }
     yield put({ type: types.SAVE_ADMIN_QUESTION_FAIL });
   }
 }
 
 
-export function* deleteAdminQuestionSaga({ id, questionid }) {
+export function* deleteAdminQuestionSaga({navigate, id, questionid }) {
   try {
     yield put({ type: types.DELETE_ADMIN_QUESTION_START });
     const response = yield call(deleteAdminQuestion, id, questionid);
-    if (response?.data?.status == 200) {
       toast.success("Delete Data Successfully..")
       yield put({
         type: types.DELETE_ADMIN_QUESTION_SUCCESS,
         id: questionid
       });
-    } else {
-      toast.error(response?.data?.message)
-      yield put({
-        type: types.DELETE_ADMIN_QUESTION_FAIL,
-        data: response?.data?.data,
-      });
-    }
+   
   } catch (error) {
+    toast.error(error?.response?.data?.message)
+    if (error?.response?.status === 401) {
+      navigate("/")
+    }
     yield put({ type: types.DELETE_ADMIN_QUESTION_FAIL });
   }
 }
 
-export function* updateAdminQuestionSaga({ id, data }) {
+export function* updateAdminQuestionSaga({navigate, id, data }) {
   try {
     yield put({ type: types.UPDATE_ADMIN_QUESTION_START });
-    const response = yield call(updateAdminQuestion, id, data);
-    if (response?.data?.status == 200) {
-      toast.success("Update Data Successfully..")
-      yield put({
-        type: types.UPDATE_ADMIN_QUESTION_SUCCESS,
-        id,
-        data
-      });
-    } else {
-      toast.error(response?.data?.message)
-      yield put({
-        type: types.UPDATE_ADMIN_QUESTION_FAIL,
-        data: response?.data?.data,
-      });
-    }
+    yield call(updateAdminQuestion, id, data);
+    toast.success("Update Data Successfully..")
+    yield put({
+      type: types.UPDATE_ADMIN_QUESTION_SUCCESS,
+      id,
+      data
+    });
+
   } catch (error) {
+    console.log("error",error)
+    debugger;
+    toast.error(error?.response?.data?.message)
+    if (error?.response?.status === 401) {
+      navigate("/")
+    }
     yield put({ type: types.UPDATE_ADMIN_QUESTION_FAIL });
   }
 }

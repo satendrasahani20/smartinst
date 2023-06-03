@@ -105,7 +105,7 @@ export const adminReducer = (state = initialState, action) => {
         case types.UPDATE_ADMIN_QUESTION_START:
             return { ...state, };
         case types.UPDATE_ADMIN_QUESTION_SUCCESS:
-            let tempQuestion3 = [...state.questions]
+            let tempQuestion3 =state.questions ? [...state.questions]:[]
             let index4 = tempQuestion3?.findIndex((item) => item?._id == action?.data?._id)
             tempQuestion3[index4] = action?.data
             return { ...state, devListLoading: false, questions: tempQuestion3 };

@@ -28,41 +28,46 @@ export const getModuleDetails = (navigate,id) => ({
   navigate
 })
 
-export const saveModule = (data, cancel) => ({
+export const saveModule = (navigate,data, cancel) => ({
   type: types.SAVE_ADMIN_MODULE,
+  navigate,
   data,
   cancel
 })
-export const updateModules = (id, data, cancel) => ({
+export const updateModules = (navigate,id, data) => ({
   type: types.UPDATE_ADMIN_MODULE,
   data,
   id,
-  cancel
+  navigate
 })
-export const deleteModule = (id) => ({
+export const deleteModule = (navigate,id) => ({
   type: types.DELETE_ADMIN_MODULE,
-  id
+  id,
+  navigate
 })
 
 export const getAdminQuestion = (id) => ({
   type: types.GET_ADMIN_QUESTION,
   id
 })
-export const saveAdminQuestion = (id,data,cancel) => ({
+export const saveAdminQuestion = (navigate,id,data,cancel) => ({
   type: types.SAVE_ADMIN_QUESTION,
   id,
   data,
-  cancel
+  cancel,
+  navigate
 })
-export const updateAdminQuestion = (id,data) => ({
+export const updateAdminQuestion = (navigate,id,data) => ({
   type: types.UPDATE_ADMIN_QUESTION,
   id,
-  data
+  data,
+  navigate
 })
-export const deleteAdminQuestion = (id,questionid) => ({
+export const deleteAdminQuestion = (navigate,id,questionid) => ({
   type: types.DELETE_ADMIN_QUESTION,
   id,
-  questionid
+  questionid,
+  navigate
 })
 export const saveQuardinator = (data,cancel) => ({
   type: types.SAVE_ADMIN_QUARDINATE,
